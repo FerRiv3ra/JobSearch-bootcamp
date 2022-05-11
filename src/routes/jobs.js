@@ -9,6 +9,7 @@ const {
 } = require('../controllers/jobs');
 const { validCategory, validJob } = require('../helpers/validations');
 const { validateFields } = require('../middlewares/validateFields');
+const validCountry = require('../middlewares/validCountry');
 const validMinimumRole = require('../middlewares/validMinimumRole');
 const validateJWT = require('../middlewares/verifyJWT');
 
@@ -34,6 +35,7 @@ router.post(
       min: 2,
       max: 2,
     }),
+    validCountry,
     check('details', 'Detail about job is required').not().isEmpty(),
     check('title', 'Title is required').not().isEmpty(),
     validateFields,
@@ -48,6 +50,7 @@ router.put(
     validMinimumRole,
     check('id', 'Is not valid ID').isMongoId(),
     check('id').custom(validJob),
+    validCountry,
     validateFields,
   ],
   editJob
