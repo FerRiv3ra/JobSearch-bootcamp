@@ -3,7 +3,7 @@ const User = require('../models/User');
 class UserService {
   async getAll() {
     try {
-      const users = await User.find();
+      const users = await User.find({ state: true });
       return users;
     } catch (error) {
       console.log(error);
